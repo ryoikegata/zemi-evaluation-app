@@ -17,7 +17,7 @@ model User {
   id Int @id @default(autoincrement())
   student_id String
   email String @unique
-  password String @unique
+  password String
   group_id Int
   createdAt DateTime @default(now())
 }

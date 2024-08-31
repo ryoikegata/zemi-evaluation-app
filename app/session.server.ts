@@ -1,0 +1,15 @@
+import { createCookieSessionStorage } from "@remix-run/node";
+
+export let sessionStorage = createCookieSessionStorage({
+  cookie: {
+    name: "_session",
+    sameSite: "lax",
+    path: "/",
+    httpOnly: true,
+    secrets: [process.env.SESSION_SECRET || ''],
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+  },
+});
+
+export let { getSession, commitSession, destroySession } = sessionStorage;

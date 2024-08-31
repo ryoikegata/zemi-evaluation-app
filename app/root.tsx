@@ -2,34 +2,28 @@ import {
   Links,
   Meta,
   Outlet,
-  Scripts,
-  ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
-import stylesheet from "~/styles/tailwind.css?url";
+import { CssVarsProvider } from "@mui/joy";
+import { Suspense } from "react";
+import "~/styles/tailwind.css";
 
-export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesheet }];
-};
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
-  );
-}
+//tailwindcssのスタイルを読み込む
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+        <CssVarsProvider>
+      <html lang="ja">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>ゼミ管理APP</title>
+          <Meta />
+          <Links />
+        </head>
+            <Outlet />
+      </html>
+        </CssVarsProvider>
+    </>
+  );
 }
