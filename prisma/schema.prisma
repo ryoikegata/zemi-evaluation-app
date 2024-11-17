@@ -19,6 +19,7 @@ model User {
   email String @unique
   password String
   group_id Int
+  role_id Int
   createdAt DateTime @default(now())
 }
 
@@ -61,6 +62,7 @@ model Event {
 
 model Work {
   id        Int      @id @default(autoincrement())
+  studentId String
   name      String
   description String
   groupId Int
