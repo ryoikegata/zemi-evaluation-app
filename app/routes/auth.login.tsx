@@ -33,7 +33,6 @@ export default function Login() {
   const passwordField = useField('password', { formId });
 
   return (
-    <div className="">
       <ValidatedForm validator={loginValidator} method="POST" id={formId}>
         <Sheet sx={{
           width: 300,
@@ -65,6 +64,5 @@ export default function Login() {
           <Button type="submit" name="_action">ログイン</Button>
         </Sheet>
           </ValidatedForm>
-          </div>
   );
 }

@@ -1,29 +1,40 @@
 import {
   Links,
+  LiveReload,
   Meta,
   Outlet,
+  Scripts,
+  ScrollRestoration,
 } from "@remix-run/react";
-import { CssVarsProvider } from "@mui/joy";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 import "~/styles/tailwind.css";
 
-//tailwindcssのスタイルを読み込む
-
-export default function App() {
+export function Layout({ children }) {
   return (
-    <>
-        <CssVarsProvider>
-      <html lang="ja">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <title>ゼミ管理APP</title>
-          <Meta />
-          <Links />
-        </head>
-            <Outlet />
-      </html>
-        </CssVarsProvider>
-    </>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+        <ScrollRestoration />
+      </body>
+    </html>
   );
 }
+
+export default function App() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // クライアントサイドでのみ実行されるコード
+    setIsClient(true);
+  }, []);
+
+  return isClient ? <Outlet /> : null;
+}
+

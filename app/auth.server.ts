@@ -17,28 +17,23 @@ const formStrategy = new FormStrategy(async ({ form }) => {
   const email = form.get('email')
   const password = form.get('password')
 
-  console.log('email:', email)
-  console.log('password:', password)
   if (!(email && password)) {
     throw new Error('Invalid Request')
   }
 
   const user = await prisma.user.findUnique({ where: { email: String(email) } })
-  console.log('user:', user)
 
   if (!user) {
     throw new AuthorizationError()
   }
 
   const passwordsMatch = await bcrypt.compare(String(password), user.password)
-  console.log('passwordsMatch:', passwordsMatch)
 
   if (!passwordsMatch) {
     throw new AuthorizationError()
   }
 
   const { password: _, ...userWithoutPassword } = user
-  console.log('userWithoutPassword:',password, userWithoutPassword);
 
   return userWithoutPassword
 })
