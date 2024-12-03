@@ -25,7 +25,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   return await postEvent(data);
 };
 
-export default function EventsCreate() {
+export default function CreateEvents() {
   const actionData = useActionData<typeof action>();
   const groups = [
     { id: 1, group: "お店大賞" },

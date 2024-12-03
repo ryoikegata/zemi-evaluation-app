@@ -1,6 +1,6 @@
 import { Button, Link, List, ListItem, Sheet, Typography } from "@mui/joy";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { group } from "console";
 import { getAllEvents } from "~/models/event.server";
 

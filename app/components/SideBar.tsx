@@ -31,14 +31,14 @@ export const Sidebar = ({ user }: SidebarProps) => {
   const NotGeneralItems = [
     { text: 'イベント作成', route: '/events/create' },
     { text: 'タスク作成', route: '/tasks/create' },
-    { text: '生徒追加', route: '/students/create' },
-    { text: '生徒編集', route: '/students/edit' }
+    { text: '生徒追加', route: '/users/create' },
+    { text: '生徒編集', route: '/users/edit' }
   ];
 
   const ListItems = [
     { text: 'イベント一覧', route: '/events' },
     { text: 'タスク一覧', route: '/tasks' },
-    { text: '生徒一覧', route: '/students' }
+    { text: '生徒一覧', route: '/users' }
   ];
   return (
     <Fragment>
