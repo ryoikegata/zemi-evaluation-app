@@ -19,6 +19,7 @@ const student_ids = Array.from({ length: 10 }).map(() => ({
 // ダミーユーザーの作成
 const users = student_ids.map((studentObj) => ({
   student_id: studentObj.student_id, // ここで対応するstudent_idを使用
+  name: '田中太郎',
   email: faker.internet.email(),
   password: hashedPassword, // 実際のパスワードハッシュを使用する場合は別途処理が必要です
   role_id: faker.datatype.number({ min: 1, max: 3 }),
@@ -39,6 +40,7 @@ await prisma.user.createMany({
       { role: 'teacher' },
       { role: 'general' },
       { role: 'leaders' },
+      { role: 'admin' },
     ],
   });
 

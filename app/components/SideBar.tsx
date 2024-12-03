@@ -1,19 +1,28 @@
 import { Box, Button, Divider, Drawer, List, ListItem, ListItemButton, Typography } from '@mui/joy';
 import { Form } from '@remix-run/react';
-import React, { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment } from 'react';
 
-
-export const Sidebar = ({user}) => {
+export const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
   };
 
+  const sidebarItems = ['イベント参加状態', '出席状態', 'タスク進捗状態'];
+
   return (
     <Fragment>
-      <Typography color="neutral" onClick={handleClick}>
-        メニュー
+      <Typography color="neutral" sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1,
+        cursor: 'pointer',
+        alignItems: 'center',
+      }} onClick={handleClick}>
+        <span className='border w-6 block border-black'></span>
+        <span className='border w-6 block border-black'></span>
+        <span className='border w-6 block border-black'></span>
       </Typography>
       <Drawer
         open={open}
@@ -21,20 +30,13 @@ export const Sidebar = ({user}) => {
       >
         <Box sx={{ p: 2 }}>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
+            {sidebarItems.map((text) => (
               <ListItem key={text}>
                 <ListItemButton>{text}</ListItemButton>
               </ListItem>
             ))}
           </List>
           <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text) => (
-              <ListItem key={text}>
-                <ListItemButton>{text}</ListItemButton>
-              </ListItem>
-            ))}
-          </List>
         <Form method="POST">
         <Button type="submit" name="action" value="logout" sx={{
           color: 'white',

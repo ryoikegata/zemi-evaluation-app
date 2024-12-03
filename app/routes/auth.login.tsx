@@ -1,5 +1,5 @@
 import { Button, FormControl, FormLabel, Input, Sheet, Typography } from "@mui/joy";
-import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { useField, ValidatedForm } from "remix-validated-form";
 import { authenticator } from "~/auth.server";
 import { loginValidator } from "~/types/shema";
@@ -7,11 +7,14 @@ import { loginValidator } from "~/types/shema";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   try {
-    const user = await authenticator.isAuthenticated(request, {
-      successRedirect: '/',
-    });
+    const user = await authenticator.isAuthenticated(request);
 
-    return user || null;
+    if (user) {
+      // ユーザーが存在する場合はホームページにリダイレクト
+      return redirect("/");
+    }
+
+    return null; // ユーザーが存在しない場合はログインページを表示
   } catch (error) {
     console.error("Loader error:", error);
     return null;

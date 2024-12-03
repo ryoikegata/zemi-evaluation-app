@@ -1,8 +1,7 @@
-import { Box, Button } from "@mui/joy";
+import { Box, Button, Link } from "@mui/joy";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
-import { Sidebar } from "~/components/SideBar";
 import { getClassAttendanceByStudentId } from "~/models/classAttendance.server";
 import { getEventAttendanceByStudentId } from "~/models/eventAttendance.server";
 import { getWorkByStudentId } from "~/models/work.server";
@@ -19,37 +18,59 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return { user, classAttendances, eventAttendances, works }
 }
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-  return await authenticator.logout(request, { redirectTo: '/auth/login' })
-}
-
 export default function Index() {
   const { user, classAttendances, eventAttendances, works } = useLoaderData<typeof loader>()
   return (
     <>
-    <header className=" flex justify-between p-5 ">
-      <div>
-      <p>{user.student_id}さん</p>
-      </div>
-      <div>
-      <Sidebar user={user} />
-      </div>
-    </header>
-    <div>
-      <p>イベント参加回数</p>
-      <p>{eventAttendances.length}回</p>
-      <p>詳細</p>
-    </div>
-    <div>
-      <p>授業参加回数</p>
-      <p>{classAttendances.length}回</p>
-      <p>詳細</p>
-    </div>
-    <div>
-      <p>タスク数</p>
-      <p>{works.length}個</p>
-      <p>詳細</p>
-    </div>
+    <Box sx={{
+      width: '90%',
+      margin: 'auto',
+      height: '100vh',
+      paddingTop: 12,
+    }}>
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'space-around',
+      flexDirection: 'column',
+      gap: 4,
+    }}>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      gap: 3,
+      height: 80,
+    }}>
+      <p className="text-left ml-2">イベント参加回数</p>
+      <p className="text-center"><span className="text-2xl">{eventAttendances.length}</span>回</p>
+      <Link href="/event">
+      <Button className=" text-center">詳細</Button>
+      </Link>
+    </Box>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      gap: 4,
+      height: 80,
+    }}>
+      <p className="text-left ml-2">イベント参加回数</p>
+      <p className="text-center"><span className="text-2xl">{eventAttendances.length}</span>回</p>
+      <Button className="text-center">詳細</Button>
+    </Box>
+    <Box sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      gap: 4,
+      height: 80,
+    }}>
+      <p className="text-left ml-2">イベント参加回数</p>
+      <p className="text-center"><span className="text-2xl">{eventAttendances.length}</span>回</p>
+      <Button className=" text-center">詳細</Button>
+    </Box>
+    </Box>
+    </Box>
     </>
   );
 }
