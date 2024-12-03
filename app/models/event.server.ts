@@ -1,5 +1,17 @@
 import { prisma } from "~/libs/dbconnect";
 
+export const getAllEvents = async () => {
+  try {
+    const events = await prisma.event.findMany();
+    return events;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("不明なエラーが発生しました");
+  }
+}
+
 export const postEvent = async (event: {
   name: string;
   description: string;
